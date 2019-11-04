@@ -38,8 +38,8 @@ return $array;
 
 function getAllAVandAB() {
 $pdo = new PDO("mysql:host=localhost;dbname=my-db", 'newuser','password');
-$sql = "SELECT name FROM users WHERE name like '%ab%' or name like '%av%'";
-//$sql = "SELECT name FROM users WHERE name like '%аб%' or name like '%ав%'";
+//$sql = "SELECT name FROM users WHERE name like '%ab%' or name like '%av%'";
+$sql = "SELECT name FROM users WHERE name like '%аб%' or name like '%ав%'";
 $stmt = $pdo->prepare($sql);
 $stmt->execute();
 $array = $stmt->fetchAll(PDO::FETCH_ASSOC);
