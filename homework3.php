@@ -29,7 +29,9 @@ $stmt = $pdo->prepare($sql);
 }
 
 function getOver50() {
-$pdo = new PDO("mysql:host=localhost;dbname=my-db", 'newuser','password');
+$pdo = new PDO("mysql:host=localhost;dbname=mydb", 'newuser','password');
+$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+$pdo->exec('set names utf8');
 $sql = "SELECT name FROM users WHERE age > 50";
 $stmt = $pdo->prepare($sql);
 $stmt->execute();
@@ -38,9 +40,11 @@ return $array;
 }
 
 function getAllAVandAB() {
-$pdo = new PDO("mysql:host=localhost;dbname=my-db", 'newuser','password');
-$sql = "SELECT name FROM users WHERE name like '%ab%' or name like '%av%'";
-//$sql = "SELECT name FROM users WHERE name like '%аб%' or name like '%ав%'";
+$pdo = new PDO("mysql:host=localhost;dbname=mydb", 'newuser','password');
+$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+$pdo->exec('set names utf8');
+//$sql = "SELECT name FROM users WHERE name like '%ab%' or name like '%av%'";
+$sql = "SELECT name FROM users WHERE name like '%аб%' or name like '%ав%'";
 $stmt = $pdo->prepare($sql);
 $stmt->execute();
 $array = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -48,7 +52,9 @@ return json_encode($array);
 }
 
 function updAllOver70() {
-$pdo = new PDO("mysql:host=localhost;dbname=my-db", 'newuser','password');
+$pdo = new PDO("mysql:host=localhost;dbname=mydb", 'newuser','password');
+$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+$pdo->exec('set names utf8');
 $sql = "SELECT id, name FROM users WHERE age > 70";
 $stmt = $pdo->prepare($sql);
 $stmt->execute();
@@ -60,7 +66,9 @@ return json_encode($array);
 }
 
 function getDistinct() {
-$pdo = new PDO("mysql:host=localhost;dbname=my-db", 'newuser','password');
+$pdo = new PDO("mysql:host=localhost;dbname=mydb", 'newuser','password');
+$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+$pdo->exec('set names utf8');
 $sql = "SELECT distinct name FROM users";
 $stmt = $pdo->prepare($sql);
 $stmt->execute();
@@ -69,8 +77,8 @@ return json_encode($array);
 }
 
 
-genPeople(); //генерация 1000 случайных имен
+//genPeople(); //генерация 1000 случайных имен
 //var_dump(getOver50()); //возвращаем массив юзернеймов старше 50
-//echo getAllAVandAB(); //все строки, где в имени (name) есть буквосочетание ав или аб
+echo getAllAVandAB(); //все строки, где в имени (name) есть буквосочетание ав или аб
 //echo updAllOver70(); //изменяем все имена юзернеймов старше 70 на Pepito
 //echo getDistinct(); //все уникальные имена (name) из таблицы users
